@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet</title>
+    <link rel="icon" href="https://img2.imgtp.com/2024/05/07/fwq3vB9c.png" type="image/png">
+    <style>
+        body {
+            width: 100%;
+            margin-left: 0;
+            /*background-color: #1e1e1e;*/
+            background-color: #212121;
+        }
+        .heads {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            border-bottom: 1px solid #f4f3f3;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        #heads-a {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+        }
+        #heads-b {
+            margin-right: 50px;
+        }
+        #heads-b a {
+            color: #fff;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        #heads-a img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        #wallet,#pre-sale {
+            margin-left: 10px;
+            color: #ffff;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 25px;
+        }
+        #pre-sale {
+            color: rgb(249, 145, 10);
+        }
+
+        #pre-sale a:hover {color:rgb(61, 59, 59);}  
+        #pre-sale a:active {color: #000;} 
+        
+        .token,.about,.synopsis,.promise,.road-map {
+            text-align: center;
+            font-weight: 500;
+            color: #efeded;
+            margin-top: 60px;
+            padding: 10px;
+        }
+        .airdrop {
+            text-align: center;
+            font-weight: 500;
+            color: #efeded;
+            margin-top: 60px;
+            padding: 10px;
+            background-color: #212121;
+            margin-bottom: 60px;
+        }
+    
+        /*.token {
+            display: flex;
+            margin: 0 auto;
+            font-weight: 500;
+            color: #efeded;
+            margin-top: 60px;
+        }
+        .token-text {
+            display: contents;
+        }*/
+        /*synopsis,.airdrop*/
+        .promise {
+            background-color: #212121;
+            padding: 30px;
+        }
+        #topic {
+            display: flex;
+            margin-top: 50px;
+            /*justify-content: space-between;*/
+            justify-content: center;
+            align-items: center;
+            font-weight: 500;
+            color: #fff; /*#212121;*/
+            padding: 10px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            /* background-color: #53df34;*/
+            margin-bottom: 200px;
+        }
+        /*#topic img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }*/
+        #wallet-title {
+            font-size: 30px;
+        } 
+        #wallet-title button {
+            width: 120px;
+            height: 40px;
+            border: 1px solid rgb(249, 145, 10);
+            background-color: rgb(249, 145, 10);
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        #orcawallet-logo img {
+            width: 350px;
+            height: 550px;
+            margin-left: 100px;
+            border-radius: 10px;
+        }
+        #topic-text {
+            color: rgb(249, 145, 10);
+        }
+
+        
+
+        /* popup */
+        .popup {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(5, 5, 5, 0.8);
+          z-index: 9999;
+        }
+        .modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #131313;
+          border-radius: 5px;
+          width: 90%;
+          height: 490px;
+          color: #fff;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+          -ms-word-break: break-all;
+          word-break: break-word;
+          border: 1px solid #000;
+        }
+        .popup-he {
+            height: 40px;
+            border-bottom: 1px solid #8f8c8c;
+        }
+        .butt {
+          width: 100%;
+          display: flex;
+        }
+        .butt button {
+          background: rgb(249, 145, 10);
+          border: 2px solid rgb(249, 145, 10);
+          border-radius: 5px;
+          height: 35px;
+          color: #fff;
+          font-weight: 600;
+          margin: 0 auto; 
+        }
+
+        .close-receive-assets {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .close-receive-assets a {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .close-receive-assets a:hover {color:rgb(61, 59, 59);}  
+        .close-receive-assets a:active {color: #000;} 
+
+        #contract {
+            padding: 10px;
+            text-align: center;
+            color: #dad7d7;
+        }
+        #countdown,
+        .popup-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #proportion {
+            text-align: center;
+            padding: 10px;
+            font-weight: 500;
+            margin-top: 30px;
+        }
+        #proportion p {
+            margin: 5px;
+        }
+
+        .progress-bar {
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: flex;
+            margin: 0 auto;
+            width: 80%;
+            
+        }
+
+        .progress {
+            width: 0;
+            height: 40px;
+            background-color: rgb(249, 145, 10);
+            border-radius: 3px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+        }
+        #proportion > h3 {
+            margin: 3px;
+        }
+        #ti-days,#ti-hours,#ti-minutes,#ti-seconds {
+            color: rgb(249, 145, 10);
+        }
+
+        #font-color {
+            color: rgb(249, 145, 10);
+            font-size: 20px;
+        }
+        #about-detail,
+        #economy-detail {
+            font-size: 20px;
+            margin: 0 auto;
+            border: 1px solid #3b3a3a;
+            border-radius: 5px;
+        }
+        #detail-text {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+        }
+        #te {
+            color: #bebdbd;
+        }
+        /* 路线图 */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #ccc;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 20px;
+            margin: 0 10px;
+            margin-top: 10px;
+            background: #252525;
+            border-radius: 5px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgb(249, 145, 10); /*#ccc;*/
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 30px;
+        }
+
+        .timeline-item:last-child:before {
+            display: none;
+        }
+
+        /*.timeline-item .timeline-content {
+            margin-left: 30px;
+        }*/
+
+        .timeline-item .timeline-content h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .timeline-item .timeline-content p {
+            margin: 0;
+            font-size: 14px;
+            color: #dedbdb;
+        }
+
+        #pre-sale-addr,
+        #token-address {
+            text-align: center;
+            font-size: 15px;
+            word-wrap: break-word;
+        }
+        
+        #input-bo {
+            margin-bottom: 20px;
+        }
+        #input-box {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 0px;
+        }
+
+        .confirm-button {
+            padding: 10px; /* 20px;*/
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .confirm-button:hover {
+            background-color: #0056b3;
+        }
+        .visit-twitter {
+            height: 18px;
+            color: #007bff;
+        }
+        #mint-text {
+            margin-top: 20px;
+        }
+        #subtopic {
+            display: none;
+        }
+
+        #wallet-img-content {
+            width: 100%;
+            display: flex;
+            text-align: center;
+            margin-bottom: 200px;
+        }
+        .wallet-text {
+            display: flex;
+            margin: 0 auto;
+        }
+        .wallet-home {
+            width: 100%;
+            margin-top: 30px;
+        }
+        .wallet-home img {
+            width: 350px;
+            height: 500px;
+        }
+
+        .bott {
+            /*text-align: center;*/
+            display: flex;
+            align-items: center;
+            font-weight: 300;
+            height: 260px;
+            width: 100%;
+            margin-bottom: 0;
+            background-color: #131313;
+        }
+        
+
+        #twitter {
+            width: 20px;
+            height: 20px;
+            margin: 10px;
+            border-radius: 50%;
+        }
+        #github {
+            width: 20px;
+            height: 20px;
+            margin: 10px;
+            border-radius: 50%;
+        }
+        .mark {
+            margin-top: 0px;
+        }
+
+        .wallet-he {
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+            color: #fff;
+            font-size: 25px;
+        }
+
+        #resource {
+            margin-left: 50px;
+        }
+       
+        #resource button {
+            margin-top: 20px;
+            margin-left: 50px;
+            width: 80px;
+            height: 40px;
+            color: #fff;
+            border-radius: 3px;
+            background-color: #131313;
+        }
+        .contact {
+            display: flex;
+            margin-top: 20px;
+        }
+        #contact-c {
+            width: 40px;
+            height: 40px;
+            border-radius: 7px;
+            background-color: #2e2e2e;
+            margin-right: 10px;
+        }
+        .Copyright {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        #wallet-he-c {
+            width: 50px;
+            height: 50px;
+            border-radius: 7px;
+            background-color: #2e2e2e;
+            margin-right: 10px;
+        }
+        #wallet-logo {
+            width: 30px;
+            height: 30px;
+            margin: 10px;
+        }
+    </style>
+
+    <!--<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+            let lang = 'English'; // English/Chinese
+            const twitter = 'https://x.com/Creator145176?s=20';
+            const github = 'https://github.com/godswhale/OrcaWallet';
+
+            const english = {
+                'lang0': 'Bitcoin Ecological plug-in wallet',
+                'lang1': 'Bits Chrome Extensions wallet',
+                'lang2': 'Install wallet'
+            }
+
+            const chinese = {
+                'lang0': 'Bitcoin 生态插件钱包',
+                'lang1': 'Bits协议谷歌插件钱包',
+                'lang2': '安装钱包'
+            }
+
+            const updateContent = async() => {
+                let setlang = lang == 'English' ? english : chinese;
+                showText('topic-text', setlang.lang0);
+                showText('bits', setlang.lang1);
+                showText('install-wallet', setlang.lang2);
+                if (lang == 'English') $('#wallet-image').attr('src', 'https://img2.imgtp.com/2024/05/07/fNt0gMGe.png');
+                if (lang == 'Chinese') $('#wallet-image').attr('src', 'https://img2.imgtp.com/2024/05/07/1ZIv4fDt.png');
+            }
+           
+
+            showText('language', 'Chinese');
+            updateContent();
+
+            $('#language').click(function() {
+                let set_lang = lang == 'English' ? 'Chinese' : 'English';
+                lang = set_lang;
+                showText('language', set_lang == 'English' ? 'Chinese' : 'English');
+                updateContent();
+            })
+
+            
+            $('#github').on('click', function(){
+                window.open(github, '_blank');
+            });
+            $('#twitter').click(function() {
+                window.open(twitter, '_blank');
+            })
+            $('#install-wallet').click(function() {
+                window.open(github, '_blank');
+            })
+
+            function showText(elements, textData) {
+                $('#'+ elements).html(textData);
+            }
+            function checkScreenWidth() {
+                var screenWidth = window.innerWidth;
+                if (screenWidth > 768) {
+                    $('#orcawallet-logo').show();
+                } else {
+                    $('#orcawallet-logo').hide();
+                    $('#heads-a').css('margin-left', '10px');
+                    $('#heads-b').css('margin-right', '10px');
+                    $('#wallet').css('font-size', '20px');
+                    $('#resource').css('margin-left', '10px');
+                }
+            }
+
+            checkScreenWidth();
+            window.addEventListener('resize', checkScreenWidth);
+        })
+    </script>
+</head>
+<body>
+  <div>
+    <div class="heads">
+        <div id="heads-a">
+            <img src="https://img2.imgtp.com/2024/05/07/fwq3vB9c.png">
+            <p id="wallet">ORCA WALLET</p>
+        </div>
+        <div id="heads-b">
+            <a id="language" href="#"></a>
+        </div>
+    </div>
+    <div class="content">
+        <div id="topic">
+            <div id="wallet-title">
+                <!--<img src="https://img2.imgtp.com/2024/05/07/fwq3vB9c.png">-->
+                <h2>OrcaWallet</h2>
+                <h2 id="topic-text"></h2>
+                <h3 id="bits"></h3>
+                <button id="install-wallet" type="submit"></button>
+                <!--<h4 id="subtopic">bits插件钱包</h4>
+                <h6 id="subtopic-s">bits插件钱包</h6>-->
+               
+            </div>
+            <div id="orcawallet-logo"> 
+                <img id="wallet-image" src="https://img2.imgtp.com/2024/05/07/1ZIv4fDt.png">
+            </div>
+        </div>
+
+        <div class="bott">
+            <div id="resource">
+                <div class="wallet-he">
+                    <div id="wallet-he-c"><img id="wallet-logo" src="https://img2.imgtp.com/2024/05/07/fwq3vB9c.png"></div>
+                    <div>ORCA WALLET</div>
+                </div>
+                <div class="contact">
+                    <div id="contact-c"><img id="github" title="github" src="https://img2.imgtp.com/2024/05/07/O5MxB6or.png"></div>
+                    <div id="contact-c"><img id="twitter" title="twitter" src="https://img2.imgtp.com/2024/05/07/mjUZOUhT.png"></div>
+                </div>
+                <div class="Copyright">Copyright © 2024 OrcaWallet Bitcoin</div>
+            </div>
+
+            <!--<div class="mark">
+                <img id="logo" src="https://img2.imgtp.com/2024/03/22/3gJnuVJf.png">
+                <img id="twitter" src="https://img2.imgtp.com/2024/03/22/ndYYS1qs.png">
+            </div>
+            <div class="Copyright">Copyright © 2024 DIAOM</div>-->
+        </div>
+    </div>
+  </div>
+      
+</body>
+</html>
